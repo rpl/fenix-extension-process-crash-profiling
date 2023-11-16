@@ -8,7 +8,7 @@ const BROWSERTIME_CMD = `
     --browser firefox \
     --ignoreShutdownFailures true \
     --firefox.android.package ${fenixApkName} \
-    --firefox.disableBrowserTimeExtension true \
+    --firefox.disableBrowsertimeExtension true \
     --firefox.geckoProfiler \
     --firefox.geckoProfilerParams.features js,stackwalk,cpu \
     --firefox.geckoProfilerParams.threads GeckoMain \
