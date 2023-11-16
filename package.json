@@ -1,0 +1,14 @@
+{
+  "name": "fenix-extension-process-crash-profiling",
+  "version": "0.1.0",
+  "description": "Browsertime-based automated scenario collecting GeckoProfiler data related to the extension process crash handling",
+  "scripts": {
+    "extension-process-crash": "node scripts/browsertime-run.js scenario/extension-process-crash.js"
+  },
+  "author": "Luca Greco <lgreco@mozilla.com>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "browsertime": "^19.0.0",
+    "shelljs": "^0.8.5"
+  }
+}
