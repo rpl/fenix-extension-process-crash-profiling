@@ -1,12 +1,14 @@
 module.exports = async function (context, commands) {
   const { runWithProfilerMarker } = require("./libs/helpers");
 
+  await commands.navigate("about:blank");
+
   context.log.info("Starting an extension-process-crash test");
 
   // measure.start will be starting the geckoProfiler.
   await commands.measure.start("extension-process-crash");
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     const testMsg = `Test Crash n. ${i + 1}`;
     context.log.info(testMsg);
     await commands.wait.byTime(1000);
