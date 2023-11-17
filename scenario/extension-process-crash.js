@@ -1,19 +1,23 @@
 module.exports = async function (context, commands) {
- context.log.info("Starting an extension-process-crash test");
+  const { runWithProfilerMarker } = require("./libs/helpers");
 
- // measure.start will be starting the geckoProfiler.
- await commands.measure.start("extension-process-crash");
- await commands.navigate("about:blank");
- await commands.wait.byTime(1000);
- await context.selenium.driver.navigate().to("about:crashextensions");
- await commands.wait.byTime(5000);
- await context.selenium.driver.navigate().to("about:crashextensions");
- await commands.wait.byTime(5000);
- await context.selenium.driver.navigate().to("about:crashextensions");
- await commands.wait.byTime(5000);
- await context.selenium.driver.navigate().to("about:crashextensions");
- await commands.wait.byTime(5000);
- await context.selenium.driver.navigate().to("about:crashextensions");
- await commands.wait.byTime(5000);
- await commands.measure.stop();
+  context.log.info("Starting an extension-process-crash test");
+
+  // measure.start will be starting the geckoProfiler.
+  await commands.measure.start("extension-process-crash");
+
+  for (let i = 0; i < 6; i++) {
+    const testMsg = `Test Crash n. ${i + 1}`;
+    context.log.info(testMsg);
+    await commands.wait.byTime(1000);
+    await runWithProfilerMarker(
+      context,
+      "test-extension-process-crash",
+      testMsg,
+      () => context.selenium.driver.navigate().to("about:crashextensions"),
+    ); 
+    await commands.wait.byTime(2000);
+  }
+
+  await commands.measure.stop();
 };
