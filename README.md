@@ -7,22 +7,40 @@ GeckoProfiler data to assess the impact of the extension process crash handling 
 The scenario is described by a browsertime-based scripts and all the extensions xpi files in the `extensions/`
 will be installed in the browser instance being tested.
 
-## how to run the scenario
+## How to run the scenario
 
 Make sure to have installed the Firefox for Android apk on the device where the test will be running, by default
-the scenario will be executed on the apk for Nightly (org.mozilla.fenix), but a custom apk name can be
-passed through the environment variable `FIREFOX_APK`:
+the scenario will be executed on the apk for Nightly (org.mozilla.fenix):
 
 ```
 npm run extension-process-crash
-
-# or
-
-FIREFOX_APK=org.mozilla.fenix.debug npm run extension-process-crash
 ```
 
 After the execution is complited the GeckoProfiler data is store in the tmp/ subdir.
 
-## how to install some other extensions xpi files?
+### Run on a specific APK
 
-Dropping more xpi files in the same directory is enough to install more extensions during the next execution of the scenario.
+A custom apk name can be specified through the environment variable `FIREFOX_APK`:
+
+```
+FIREFOX_APK=org.mozilla.fenix.debug npm run extension-process-crash
+
+# or
+
+FIREFOX_APK=org.mozilla.geckoview_example npm run extension-process-crash
+```
+
+### Run with a different set of third party extensions
+
+The scenario will run by default on a Firefox profile where all the extensions listed in `./extensions/`,
+adding/removing/replace the xpi files is enough to run the scenario with a different set of extensions.
+
+### Run without third party extensions
+
+The scenario can also be forced to run without any third party extensions (which on Fenix means that only
+builtins will be installed, while on GeckoViewExample translates into running the scenario with no
+extension at all) by just setting the environment variable `NO_EXTENSIONS`:
+
+```
+NO_EXTENSIONS=1 npm run extension-process-crash
+```
