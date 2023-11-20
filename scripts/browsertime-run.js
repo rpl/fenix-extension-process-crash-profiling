@@ -15,7 +15,7 @@ const BROWSERTIME_CMD = `
     --ignoreShutdownFailures true \
     --firefox.disableBrowsertimeExtension true \
     --firefox.geckoProfiler \
-    --firefox.geckoProfilerParams.features js,stackwalk,cpu \
+    --firefox.geckoProfilerParams.features js,stackwalk,cpu,java \
     --firefox.geckoProfilerParams.threads GeckoMain \
     --firefox.geckoProfilerParams.interval 1 \
     --firefox.geckoProfilerParams.bufferSize 8000000 \
