@@ -6,6 +6,19 @@ async function runChromeJS(context, code, ...args) {
   return res;
 }
 
+const assertExtensionProcessEnabled = async (context) => {
+  const isEnabled = await runChromeJS(
+    context,
+    () => WebExtensionPolicy.useRemoteWebExtensions
+  );
+  if (isEnabled) {
+    context.log.info('OK: extension child process detected as enabled');
+    return;
+  }
+  context.log.error('KO: extension child process detected as disabled');
+  throw new Error("Extensions are not running in the childextension process");
+}
+
 const getStartTime = (context) => runChromeJS(context, function getStartTime() {
   return Cu.now();
 });
@@ -23,6 +36,7 @@ const runWithProfilerMarker = async (context, markerName, markerText, fn) => {
 };
 
 module.exports = {
+  assertExtensionProcessEnabled,
   addProfilerMarker,
   getStartTime,
   runChromeJS,

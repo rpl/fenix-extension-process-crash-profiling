@@ -1,7 +1,11 @@
 module.exports = async function (context, commands) {
-  const { runWithProfilerMarker } = require("./libs/helpers");
+  const {
+    assertExtensionProcessEnabled,
+    runWithProfilerMarker,
+  } = require("./libs/helpers");
 
   await commands.navigate("about:blank");
+  await assertExtensionProcessEnabled(context);
 
   context.log.info("Starting an extension-process-crash test");
 
